@@ -1,0 +1,45 @@
+@startuml Database
+
+database "Database" {
+    hide circle
+    skinparam linetype ortho
+
+  entity "Manufacturer" {
+    ' comment
+    -(PK) id (integer)
+    --
+    name (text)
+    description (text)
+  }
+  
+  entity "Subject" {
+    ' comment
+    -(PK) id (integer)
+    -(FK) manufacturer_id
+    --
+    name (text)
+    description (text)
+  }
+
+  entity "Experience" {
+    -(PK) id (integer)
+    -(FK) subject_id
+    --
+    date (date)
+    description (text)
+  }
+
+  entity "Rate" {
+    -(PK) id (integer)
+    -(FK) experience_id
+    --
+    rate (text)
+  }
+
+}
+
+Subject ||--o{ Experience : has_experiences
+Manufacturer ||--o{ Subject : has_subjects
+Experience }o--|| Rate : has_rate
+
+@enduml
